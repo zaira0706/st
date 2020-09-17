@@ -1,0 +1,22 @@
+--- ../st_v1_03_hidecursor/x.c	2020-08-16 16:24:02.062696137 +0800
++++ ./x.c	2020-08-16 16:58:55.819426746 +0800
+@@ -680,6 +680,8 @@
+ 	XSetSelectionOwner(xw.dpy, XA_PRIMARY, xw.win, t);
+ 	if (XGetSelectionOwner(xw.dpy, XA_PRIMARY) != xw.win)
+ 		selclear();
++
++	clipcopy(NULL);
+ }
+ 
+ void
+@@ -698,7 +700,9 @@
+ 
+ 	if (mouseaction(e, 1))
+ 		return;
+-	if (e->xbutton.button == Button1)
++	if(e->xbutton.button == Button3)
++		selpaste(NULL);
++	else if (e->xbutton.button == Button1)
+ 		mousesel(e, 1);
+ }
+ 
